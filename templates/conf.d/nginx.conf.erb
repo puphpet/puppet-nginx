@@ -16,7 +16,7 @@ http {
 
   access_log  <%= @http_access_log %>;
 
-  sendfile    <%= scope.lookupvar('nginx::params::nx_sendfile')%>;
+  sendfile    <%= scope.lookupvar('nginx::sendfile')%>;
 
   server_tokens <%= @server_tokens %>;
   <% if scope.lookupvar('nginx::params::nx_tcp_nopush') == 'on' %>tcp_nopush on;<% end %>

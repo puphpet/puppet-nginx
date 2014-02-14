@@ -56,6 +56,7 @@ class nginx (
   $nginx_upstreams        = {},
   $nginx_locations        = {},
   $manage_repo            = $nginx::params::manage_repo,
+  $sendfile               = $nginx::params::nx_sendfile
 ) inherits nginx::params {
 
   include stdlib
