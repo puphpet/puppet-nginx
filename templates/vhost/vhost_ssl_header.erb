@@ -23,6 +23,7 @@ server {
 
   access_log            <%= @ssl_access_log %>;
   error_log             <%= @ssl_error_log %>;
+  sendfile              off;
 
 <% if @root -%>
   root <%= @root %>;
