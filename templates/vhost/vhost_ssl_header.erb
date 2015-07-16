@@ -5,6 +5,18 @@ server {
   <% end %>
   server_name  <%= @rewrite_www_to_non_www ? @name.gsub(/^www\./, '') : @server_name.join(" ") %>;
 
+  <%- if (defined? @rewrites) %>
+    <% @rewrites.each do |i, rewrite| %>
+      <% if (!rewrite['when'].empty?) %>
+  if (<%= rewrite['when'] %>){
+    rewrite <%= rewrite['regex'] %> <%= rewrite['target'] %>;
+  }
+      <% else %>
+  rewrite <%= rewrite['regex'] %> <%= rewrite['target'] %>;
+      <% end %>
+    <% end %>
+  <% end -%>
+
   ssl on;
 
   ssl_certificate           <%= scope.lookupvar('nginx::params::nx_conf_dir') %>/<%= @name.gsub(' ', '_') %>.crt;
@@ -30,5 +42,3 @@ server {
 <% if @passenger_cgi_param -%><% @passenger_cgi_param.each do |key,value| -%>
   passenger_set_cgi_param  <%= key %> <%= value %>;
 <% end -%><% end -%>
-
-
