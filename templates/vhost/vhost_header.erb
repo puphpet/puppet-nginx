@@ -7,9 +7,9 @@ server {
   server_name           <%= @rewrite_www_to_non_www ? @name.gsub(/^www\./, '') : @server_name.join(" ") %>;
 <%- if (defined? @rewrites) %>
   <% @rewrites.each do |i, rewrite| %>
-    <% if (!rewrite['when'].empty?) %>
+    <% if (rewrite['when'] && !rewrite['when'].empty?) %>
   if (<%= rewrite['when'] %>){
-    rewrite <%= rewrite['regex'] %> <%= rewrite['target'] %>;
+    rewrite "<%= rewrite['regex'] %>" <%= rewrite['target'] %>;
   }
     <% else %>
   rewrite <%= rewrite['regex'] %> <%= rewrite['target'] %>;
