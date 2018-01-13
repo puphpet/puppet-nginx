@@ -1,0 +1,13 @@
+{
+  "name": "puppet-nginx",
+  "version": "v0.0.5-rc0",
+  "author": "Vox Pupuli",
+  "summary": "Puppet NGINX management module",
+  "license": "MIT",
+  "source": "https://github.com/puphpet/puppet-nginx.git",
+  "project_page": "https://github.com/puphpet/puppet-nginx",
+  "issues_url": "https://github.com/puphpet/puppet-nginx/issues",
+  "operatingsystem_support": [ ],
+  "requirements": [ ],
+  "dependencies": [ ]
+}
