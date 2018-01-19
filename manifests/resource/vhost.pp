@@ -236,7 +236,7 @@ define nginx::resource::vhost (
   validate_re($ensure, '^(present|absent)$',
     "${ensure} is not supported for ensure. Allowed values are 'present' and 'absent'.")
   validate_string($listen_ip)
-  if !is_integer($listen_port) {
+  if $listen_port !~ Integer {
     fail('$listen_port must be an integer.')
   }
   if ($listen_options != undef) {
@@ -246,7 +246,7 @@ define nginx::resource::vhost (
   validate_array($location_deny)
   validate_bool($ipv6_enable)
   validate_string($ipv6_listen_ip)
-  if !is_integer($ipv6_listen_port) {
+  if $ipv6_listen_port !~ Integer {
     fail('$ipv6_listen_port must be an integer.')
   }
   validate_string($ipv6_listen_options)
@@ -264,7 +264,7 @@ define nginx::resource::vhost (
   if ($ssl_key != undef) {
     validate_string($ssl_key)
   }
-  if !is_integer($ssl_port) {
+  if $ssl_port !~ Integer {
     fail('$ssl_port must be an integer.')
   }
   validate_string($ssl_protocols)
@@ -321,28 +321,28 @@ define nginx::resource::vhost (
     validate_bool($rewrite_to_https)
   }
   if ($raw_prepend != undef) {
-    if (is_array($raw_prepend)) {
+    if ($raw_prepend =~ Array) {
       validate_array($raw_prepend)
     } else {
       validate_string($raw_prepend)
     }
   }
   if ($raw_append != undef) {
-    if (is_array($raw_append)) {
+    if ($raw_append =~ Array) {
       validate_array($raw_append)
     } else {
       validate_string($raw_append)
     }
   }
   if ($location_raw_prepend != undef) {
-    if (is_array($location_raw_prepend)) {
+    if ($location_raw_prepend =~ Array) {
       validate_array($location_raw_prepend)
     } else {
       validate_string($location_raw_prepend)
     }
   }
   if ($location_raw_append != undef) {
-    if (is_array($location_raw_append)) {
+    if ($location_raw_append =~ Array) {
       validate_array($location_raw_append)
     } else {
       validate_string($location_raw_append)

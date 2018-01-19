@@ -108,16 +108,16 @@ class nginx (
 
   include stdlib
 
-  if (!is_string($worker_processes)) and (!is_integer($worker_processes)) {
+  if ($worker_processes !~ String) and ($worker_processes !~ Integer) {
     fail('$worker_processes must be an integer or have value "auto".')
   }
-  if (!is_integer($worker_connections)) {
+  if ($worker_connections !~ Integer) {
     fail('$worker_connections must be an integer.')
   }
-  if (!is_integer($worker_rlimit_nofile)) {
+  if ($worker_rlimit_nofile !~ Integer) {
     fail('$worker_rlimit_nofile must be an integer.')
   }
-  if (!is_string($events_use)) and ($events_use != false) {
+  if ($events_use !~ String) and ($events_use != false) {
     fail('$events_use must be a string or false.')
   }
   validate_string($multi_accept)
@@ -131,7 +131,7 @@ class nginx (
   if ($proxy_cache_path != false) {
     validate_string($proxy_cache_path)
   }
-  if (!is_integer($proxy_cache_levels)) {
+  if ($proxy_cache_levels !~ Integer) {
     fail('$proxy_cache_levels must be an integer.')
   }
   validate_string($proxy_cache_keys_zone)
@@ -141,7 +141,7 @@ class nginx (
   if ($fastcgi_cache_path != false) {
         validate_string($fastcgi_cache_path)
   }
-  if (!is_integer($fastcgi_cache_levels)) {
+  if ($fastcgi_cache_levels !~ Integer) {
     fail('$fastcgi_cache_levels must be an integer.')
   }
   validate_string($fastcgi_cache_keys_zone)
@@ -159,16 +159,16 @@ class nginx (
   validate_bool($mail)
   validate_string($server_tokens)
   validate_string($client_max_body_size)
-  if (!is_integer($names_hash_bucket_size)) {
+  if ($names_hash_bucket_size !~ Integer) {
     fail('$names_hash_bucket_size must be an integer.')
   }
-  if (!is_integer($names_hash_max_size)) {
+  if ($names_hash_max_size !~ Integer) {
     fail('$names_hash_max_size must be an integer.')
   }
   validate_string($proxy_buffers)
   validate_string($proxy_buffer_size)
   if ($http_cfg_append != false) {
-    if !(is_hash($http_cfg_append) or is_array($http_cfg_append)) {
+    if !($http_cfg_append =~ Hash or $http_cfg_append =~ Array) {
       fail('$http_cfg_append must be either a hash or array')
     }
   }

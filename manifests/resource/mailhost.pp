@@ -70,7 +70,7 @@ define nginx::resource::mailhost (
     mode  => '0644',
   }
 
-  if !is_integer($listen_port) {
+  if $listen_port !~ Integer {
     fail('$listen_port must be an integer.')
   }
   validate_re($ensure, '^(present|absent)$',
@@ -81,7 +81,7 @@ define nginx::resource::mailhost (
   }
   validate_bool($ipv6_enable)
   validate_string($ipv6_listen_ip)
-  if !is_integer($ipv6_listen_port) {
+  if $ipv6_listen_port !~ Integer {
     fail('$ipv6_listen_port must be an integer.')
   }
   validate_string($ipv6_listen_options)
@@ -92,7 +92,7 @@ define nginx::resource::mailhost (
   if ($ssl_key != undef) {
     validate_string($ssl_key)
   }
-  if ($ssl_port != undef) and (!is_integer($ssl_port)) {
+  if ($ssl_port != undef) and ($ssl_port !~ Integer) {
     fail('$ssl_port must be an integer.')
   }
   validate_re($starttls, '^(on|only|off)$',

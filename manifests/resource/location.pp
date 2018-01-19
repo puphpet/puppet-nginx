@@ -219,14 +219,14 @@ define nginx::resource::location (
     validate_bool($stub_status)
   }
   if ($raw_prepend != undef) {
-    if (is_array($raw_prepend)) {
+    if ($raw_prepend =~ Array) {
       validate_array($raw_prepend)
     } else {
       validate_string($raw_prepend)
     }
   }
   if ($raw_append != undef) {
-    if (is_array($raw_append)) {
+    if ($raw_append =~ Array) {
       validate_array($raw_append)
     } else {
       validate_string($raw_append)
@@ -262,7 +262,7 @@ define nginx::resource::location (
   if ($auth_basic_user_file != undef) {
     validate_string($auth_basic_user_file)
   }
-  if !is_integer($priority) {
+  if $priority !~ Integer {
     fail('$priority must be an integer.')
   }
   validate_array($rewrite_rules)
