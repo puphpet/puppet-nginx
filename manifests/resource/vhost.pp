@@ -136,6 +136,7 @@ define nginx::resource::vhost (
   $error_log              = undef,
   $passenger_cgi_param    = undef,
   $use_default_location   = true,
+  $sendfile               = 'off',
 ) {
 
   validate_array($location_allow)
