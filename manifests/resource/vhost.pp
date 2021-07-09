@@ -74,8 +74,9 @@
 #      options like log format to the end.
 #   [*error_log*]               - Where to write error log. May add additional
 #      options like error level to the end.
-#   [*passenger_cgi_param*]     - Allows one to define additional CGI environment 
+#   [*passenger_cgi_param*]     - Allows one to define additional CGI environment
 #      variables to pass to the backend application
+#   [*rewrites*]                - Rewrite rules for the server
 # Actions:
 #
 # Requires:
@@ -136,6 +137,7 @@ define nginx::resource::vhost (
   $error_log              = undef,
   $passenger_cgi_param    = undef,
   $use_default_location   = true,
+  $rewrites               = {},
 ) {
 
   validate_array($location_allow)
@@ -143,6 +145,7 @@ define nginx::resource::vhost (
   validate_array($proxy_set_header)
   validate_array($index_files)
   validate_array($server_name)
+  validate_hash($rewrites)
 
   File {
     ensure => $ensure ? {
@@ -197,7 +200,7 @@ define nginx::resource::vhost (
   if ($ssl == true) and ($ssl_port == $listen_port) {
     $ssl_only = true
   }
-  
+
   if $use_default_location == true {
     # Create the default location reference for the vHost
     nginx::resource::location {"${name}-default":
